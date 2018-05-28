@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { createStore } from 'redux';
 import Index from '../reducers/index'
 import normalizedData  from "../schemas/index";
+import { Map } from "immutable";
 
 console.log('normalizedDate', normalizedData);
 
@@ -25,7 +26,7 @@ console.log('normalizedDate', normalizedData);
 
 const store = createStore(
 	Index,
-	{},
+	Map({}),
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
