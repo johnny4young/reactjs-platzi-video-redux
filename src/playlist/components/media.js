@@ -14,7 +14,7 @@ class Media extends PureComponent {
 	 handleClick(event){
 	// 	this.setState({ author : 'Carolina Ponce'});
 	// 	console.log(this.props.title);
-		this.props.openModal(this.props);
+		this.props.openModal(this.props.id);
 
 	}
 	render(){
