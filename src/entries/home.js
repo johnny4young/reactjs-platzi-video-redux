@@ -7,6 +7,9 @@ import { Provider } from "react-redux";
 
 import { createStore } from 'redux';
 import Reducer from '../reducers/data'
+import normalizedDate  from "../schemas/index";
+
+console.log('normalizedDate', normalizedDate);
 
 const initialState = {
 	data: {
