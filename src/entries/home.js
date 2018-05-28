@@ -2,18 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import Playlist from '../../src/playlist/components/playlist';
 import Home from '../pages/containers/home';
-import data from '../api.json'
+//import data from '../api.json'
 import { Provider } from "react-redux";
 
 import { createStore } from 'redux';
 import Reducer from '../reducers/data'
-import normalizedDate  from "../schemas/index";
+import normalizedData  from "../schemas/index";
 
-console.log('normalizedDate', normalizedDate);
+console.log('normalizedDate', normalizedData);
 
 const initialState = {
 	data: {
-		...data
+		entities: normalizedData.entities,
+		categories: normalizedData.result.categories
 	},
 	search: []
 }
@@ -24,7 +25,7 @@ const store = createStore(
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-console.log(store.getState());
+//console.log(store.getState());
 
 const homeContainer =  document.getElementById('home-container');
 
