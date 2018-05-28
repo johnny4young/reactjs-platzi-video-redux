@@ -6,22 +6,26 @@ import Home from '../pages/containers/home';
 import { Provider } from "react-redux";
 
 import { createStore } from 'redux';
-import Reducer from '../reducers/data'
+import Index from '../reducers/index'
 import normalizedData  from "../schemas/index";
 
 console.log('normalizedDate', normalizedData);
 
-const initialState = {
-	data: {
-		entities: normalizedData.entities,
-		categories: normalizedData.result.categories
-	},
-	search: []
-}
+// const initialState = {
+// 	data: {
+// 		entities: normalizedData.entities,
+// 		categories: normalizedData.result.categories,
+// 		search: [],
+// 	},
+// 	modal: {
+// 		visibility: false,
+// 		mediaId: null
+// 	}
+// }
 
 const store = createStore(
-	Reducer,
-	initialState,
+	Index,
+	{},
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

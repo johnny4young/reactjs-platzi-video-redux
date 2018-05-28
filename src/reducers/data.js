@@ -1,6 +1,13 @@
+import normalizedData  from "../schemas/index";
+
+const initialState = {
+		entities: normalizedData.entities,
+		categories: normalizedData.result.categories,
+		search: [],
+}
 
 
-function data (state, action ){
+function data (state = initialState, action ){
 	switch (action.type) {
 		case 'SEARCH_VIDEO': 
 			//action.payload.query
