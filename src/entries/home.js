@@ -11,7 +11,8 @@ import Reducer from '../reducers/data'
 const initialState = {
 	data: {
 		...data
-	}
+	},
+	search: []
 }
 
 const store = createStore(
