@@ -9,22 +9,25 @@ import { createStore, applyMiddleware } from 'redux';
 import Index from '../reducers/index'
 import normalizedData  from "../schemas/index";
 import { Map } from "immutable";
+import logger from "redux-logger";
+
+import { composeWithDevTools } from "redux-devtools-extension";
 
 // create a middleware for redux
-function logger ({getState, dispatch}){
-	return (next) => {
-		return (action) => {
-			console.log('action to execute', action);
-			console.log('old state ', getState().toJS());
+// function logger ({getState, dispatch}){
+// 	return (next) => {
+// 		return (action) => {
+// 			console.log('action to execute', action);
+// 			console.log('old state ', getState().toJS());
 
-			const rslt = next(action);
+// 			const rslt = next(action);
 
-			console.log('new state ', getState().toJS());
+// 			console.log('new state ', getState().toJS());
 
-			return rslt;
-		}
-	}
-}
+// 			return rslt;
+// 		}
+// 	}
+// }
 
 console.log('normalizedDate', normalizedData);
 
@@ -43,7 +46,10 @@ console.log('normalizedDate', normalizedData);
 const store = createStore(
 	Index,
 	Map({}),
-	applyMiddleware(logger)
+	composeWithDevTools(
+		applyMiddleware(logger)
+	)
+	
 	// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
