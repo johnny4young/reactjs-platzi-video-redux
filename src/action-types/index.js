@@ -1,4 +1,5 @@
 export const SEARCH_ENTITIES = 'SEARCH_ENTITIES';
+export const SEARCH__ASYNC_ENTITIES = 'SEARCH_ASYNC_ENTITIES';
 
 export const OPEN_MODAL = 'OPEN_MODAL';
 
