@@ -1,24 +1,36 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
+const webpack = require('webpack');
 
 module.exports = (env) => {
   const plugins = [
-    new ExtractTextPlugin("css/[name].[hash].css")
+    new webpack.ProgressPlugin(),
+    new HtmlWebPackPlugin({
+      template: "index.html"
+    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // all options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
+    }),
   ]
 
   if (env.NODE_ENV === 'production') {
     plugins.push(
-      new CleanWebpackPlugin(['dist'], {root: __dirname})
+      new CleanWebpackPlugin({cleanOnceBeforeBuildPatterns:['dist']})
     )
   }
 
   return {
 
     entry: {
-      "home": path.resolve(__dirname, 'src/entries/home.js'),
-      "redux": path.resolve(__dirname, 'src/entries/redux.js'),
+      "home": './src/entries/home.js',
+      "redux":'./src/entries/redux.js',
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
@@ -38,23 +50,22 @@ module.exports = (env) => {
           exclude: /(node_modules)/,
           use: {
             loader: 'babel-loader',
-            options: {
-              presets: ['es2015', 'react', 'stage-2'],
-            }
           },
         },
         {
           test: /\.css$/,
-          use: ExtractTextPlugin.extract({
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  minimize: true,
-                }
-              }
-            ]
-          })
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                // you can specify a publicPath here
+                // by default it uses publicPath in webpackOptions.output
+                publicPath: '../',
+                hmr: process.env.NODE_ENV === 'development',
+              },
+            },
+            'css-loader',
+          ],
         },
         {
           test: /\.(jpg|png|gif|svg)$/,
@@ -67,6 +78,14 @@ module.exports = (env) => {
             }
           }
         },
+        {
+          test: /\.html$/,
+          use: [
+            {
+              loader: "html-loader"
+            }
+          ]
+        }
       ]
     },
     plugins
